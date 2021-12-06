@@ -1,0 +1,16 @@
+import { Component, OnInit, Input } from '@angular/core';
+import { GLEvent } from 'src/app/models/GLEvent';
+
+@Component({
+  selector: 'app-result',
+  templateUrl: './result.component.html',
+  styleUrls: ['./result.component.scss']
+})
+export class ResultComponent implements OnInit {
+  @Input() event: GLEvent;
+  constructor() { }
+
+  ngOnInit(): void {
+  }
+
+}

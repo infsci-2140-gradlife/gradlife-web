@@ -1,0 +1,14 @@
+.toolbar-spacer {
+    flex: 1 1 auto;
+}
+
+.content {
+    padding: 1rem;
+}
+
+@media(min-width: 1500px) {
+    .content {
+        margin: 0 auto;
+        width: 1380px;
+    }
+}
