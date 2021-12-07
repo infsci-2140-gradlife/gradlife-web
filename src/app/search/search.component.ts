@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { firstValueFrom, interval, Observable, of, map, tap, switchMap } from 'rxjs';
+import { firstValueFrom, interval, Observable, map } from 'rxjs';
 import { GLEvent } from '../models/GLEvent';
 import { ApiService } from '../services/api.service';
 
@@ -26,7 +26,7 @@ export class SearchComponent implements OnInit {
       }
 
       return 'Try "movie night"';
-    }), tap(x => console.log('tap', x)));
+    }));
   }
 
   async click() {

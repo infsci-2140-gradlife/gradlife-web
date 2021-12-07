@@ -1,0 +1,13 @@
+.source-component {
+    padding: 1rem;
+}
+
+.source.no-link {
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+
+    mat-icon {
+        margin-right: 4px;
+    }
+}

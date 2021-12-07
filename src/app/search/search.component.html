@@ -4,24 +4,5 @@
         <h2 class="title">Bringing graduate-level Panthers together</h2>
     </div>
 
-    <form id="form-search" #searchForm="ngForm" (ngSubmit)="click()">
-        <div class="form-layout">
-            <mat-form-field class="full-width" appearance="fill" [hideRequiredMarker]="true">
-                <mat-label>{{(placeholder$ | async) || 'Try "movie night"'}}</mat-label>
-                <input name="query" type="search" matInput [(ngModel)]="query" required>
-        
-                <button *ngIf="query" matSuffix mat-icon-button aria-label="Clear" (click)="query=''">
-                    <mat-icon>close</mat-icon>
-                </button>
-            </mat-form-field>
-            <button type="button" mat-flat-button color="primary" (click)="click()">
-                <mat-icon>search</mat-icon>
-            </button>
-        </div>
-    </form>
-    
-    <div class="results-container">
-        <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
-        <app-result *ngFor="let event of events" [event]="event"></app-result>
-    </div>
+    <app-search-box></app-search-box>
 </div>

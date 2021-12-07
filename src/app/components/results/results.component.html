@@ -1,0 +1,8 @@
+<div class="results-component">
+    <app-search-box></app-search-box>
+    <mat-divider></mat-divider>
+    <div class="results-container">
+        <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+        <app-result *ngFor="let event of events" [event]="event"></app-result>
+    </div>
+</div>

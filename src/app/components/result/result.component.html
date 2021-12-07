@@ -3,10 +3,20 @@
         <mat-card-header>
             <img mat-card-avatar src="https://localist-images.azureedge.net/photos/617248/big_square/0ec0b2778ca03f5d57679db6d450fc90cff06b6f.jpg">
             <mat-card-title>{{event.name}}</mat-card-title>
-            <mat-card-subtitle>{{event.date | date}} // {{event.location}}</mat-card-subtitle>
+            <mat-card-subtitle>{{event.date | dayjs}} @ {{event.location}}</mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
             {{event.description || '--'}}
         </mat-card-content>
+        <mat-card-actions align="end">
+            <div class="actions-container">
+                <app-source [source]="event.source"></app-source>
+                <app-result-actions [event]="event"></app-result-actions>
+            </div>
+        </mat-card-actions>
+        <!-- <mat-card-footer>
+            <mat-divider></mat-divider>
+            
+        </mat-card-footer> -->
     </mat-card>
 </div>

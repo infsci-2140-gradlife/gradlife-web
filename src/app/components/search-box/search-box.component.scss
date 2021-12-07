@@ -1,0 +1,24 @@
+form {
+    width: 100%;
+}
+
+button {
+    height: 54px;
+}
+
+.full-width {
+    width: 100%;
+}
+
+.form-layout {
+    display: flex;
+
+    mat-form-field {
+        display: block;
+        margin-right: 2rem;
+    }
+    
+    button {
+        flex-shrink: 1;
+    }
+}

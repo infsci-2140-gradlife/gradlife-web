@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of, delay } from 'rxjs';
 import { LoremIpsum } from 'lorem-ipsum';
 import { GLEvent } from '../models/GLEvent';
+import { GLSource } from '../models/GLSource';
 
 @Injectable({ providedIn: 'root' })
 export class ApiService {
@@ -40,8 +41,48 @@ export class ApiService {
     "End-of-semester celebration"
   ];
 
-  getPopularTerms(): Observable<string[]> {
-    return of(this.MOCK_POP_TERMS);
+  private MOCK_LOCATIONS = [
+    'The Pete',
+    'Cathedral of Learning',
+    'Information Sciences Building',
+    'William Pitt Student Union',
+    'Learning Research and Development Center',
+    'Sennott Square',
+    'Ruskin Hall',
+    'https://pitt.zoom.us',
+    'Soldiers & Sailors Memorial',
+    'Forbes Ave Starbucks',
+    'UPMC Montefiore',
+    'Zoom'
+  ];
+
+  private MOCK_SOURCES = [
+    { 
+      name: 'CoMeT',
+      url: 'http://halley.exp.sis.pitt.edu/comet/index.do'
+    },
+    {
+      name: 'Pitt Academic Calendar',
+      url: 'https://catalog.upp.pitt.edu/mime/media/view/212/21142/Academic+Calendar+2021-2022.pdf',
+    },
+    {
+      name: 'calendar.pitt.edu',
+      url: 'https://calendar.pitt.edu',
+    },
+    {
+      name: 'Gradlife browser extension',
+      url: 'https://chrome.google.com/webstore/detail/gradlife/jfjjbolkhogppnkhfpgffepenimjellg',
+    },
+    {
+      name: 'Personal email'
+    },
+    {
+      name: 'Mailing list'
+    }
+  ];
+
+  private randomChoice<T>(list: Array<T>): T {
+    return list[Math.floor(Math.random() * list.length)];
   }
 
   private randomDate(start = new Date('12/13/2021'), end = new Date('1/31/2022'), startHour = 0, endHour = 23) {
@@ -51,6 +92,10 @@ export class ApiService {
     return date;
   }
 
+  getPopularTerms(): Observable<string[]> {
+    return of(this.MOCK_POP_TERMS);
+  }
+
   searchEvents(query: string, pageNum = 1, pageSize = 20): Observable<GLEvent[]> {
     const events = [];
 
@@ -58,10 +103,10 @@ export class ApiService {
       events.push({
         id: i,
         name: this.lorem.generateSentences(1),
-        location: '',
+        location: this.randomChoice(this.MOCK_LOCATIONS),
         description: this.lorem.generateParagraphs(1),
         date: this.randomDate(),
-        source: 'Some source',
+        source: this.randomChoice(this.MOCK_SOURCES),
       });
     }
     return of(events).pipe(delay(this.MOCK_DELAY));
