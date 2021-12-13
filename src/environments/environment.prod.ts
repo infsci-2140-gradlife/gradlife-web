@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  searchApiUrl: 'https://pitt-gradlife.herokuapp.com',
 };

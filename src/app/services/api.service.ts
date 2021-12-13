@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Observable, of, delay } from 'rxjs';
+import { Observable, of, delay, firstValueFrom, map } from 'rxjs';
+import { environment } from 'src/environments/environment';
 import { LoremIpsum } from 'lorem-ipsum';
 import { GLEvent } from '../models/GLEvent';
 import { GLSource } from '../models/GLSource';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({ providedIn: 'root' })
 export class ApiService {
-
   private lorem = new LoremIpsum({
     sentencesPerParagraph: {
       max: 8,
@@ -19,10 +20,6 @@ export class ApiService {
   });
 
   private MOCK_DELAY = 1500;
-  private MOCK_EVENTS: GLEvent[] = [
-
-  ];  
-
   private MOCK_POP_TERMS = [
     "Student dinner",
     "Game night",
@@ -81,34 +78,45 @@ export class ApiService {
     }
   ];
 
+  constructor(private http: HttpClient) { }
+
   private randomChoice<T>(list: Array<T>): T {
     return list[Math.floor(Math.random() * list.length)];
   }
 
-  private randomDate(start = new Date('12/13/2021'), end = new Date('1/31/2022'), startHour = 0, endHour = 23) {
-    var date = new Date(+start + Math.random() * (end.getUTCDate() - start.getUTCDate()));
-    var hour = startHour + Math.random() * (endHour - startHour) | 0;
-    date.setHours(hour);
-    return date;
-  }
+  // private randomDate(start = new Date('12/13/2021'), end = new Date('1/31/2022'), startHour = 0, endHour = 23) {
+  //   var date = new Date(+start + Math.random() * (end.getUTCDate() - start.getUTCDate()));
+  //   var hour = startHour + Math.random() * (endHour - startHour) | 0;
+  //   date.setHours(hour);
+  //   return date;
+  // }
 
   getPopularTerms(): Observable<string[]> {
     return of(this.MOCK_POP_TERMS);
   }
 
-  searchEvents(query: string, pageNum = 1, pageSize = 20): Observable<GLEvent[]> {
-    const events = [];
+  // searchEvents(query: string, pageNum = 1, pageSize = 20): Observable<GLEvent[]> {
+  //   const events = [];
 
-    for (let i = 0; i < pageSize; i++) {
-      events.push({
-        id: i,
-        name: this.lorem.generateSentences(1),
-        location: this.randomChoice(this.MOCK_LOCATIONS),
-        description: this.lorem.generateParagraphs(1),
-        date: this.randomDate(),
-        source: this.randomChoice(this.MOCK_SOURCES),
-      });
-    }
-    return of(events).pipe(delay(this.MOCK_DELAY));
+  //   for (let i = 0; i < pageSize; i++) {
+  //     events.push({
+  //       id: i,
+  //       name: this.lorem.generateSentences(1),
+  //       location: this.randomChoice(this.MOCK_LOCATIONS),
+  //       description: this.lorem.generateParagraphs(1),
+  //       date: this.randomDate(),
+  //       source: this.randomChoice(this.MOCK_SOURCES),
+  //     });
+  //   }
+  //   return of(events).pipe(delay(this.MOCK_DELAY));
+  // }
+
+  searchEvents(query: string, pageNum = 1, pageSize = 20): Observable<GLEvent[]> {
+    const events: GLEvent[] = []
+
+    return this.http.post(environment.searchApiUrl, { query }).pipe(map(res => {
+      console.log('response', res);
+      return [];
+    }));
   }
 }
