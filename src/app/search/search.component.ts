@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { firstValueFrom, interval, Observable, map } from 'rxjs';
-import { GLEvent } from '../models/GLEvent';
+import { GLEvent } from '../models/gl-event';
+import { QueryResult } from '../models/query-result';
 import { ApiService } from '../services/api.service';
 
 @Component({
@@ -12,6 +13,7 @@ export class SearchComponent implements OnInit {
   placeholder$: Observable<string>;
   query: string = '';
   events: GLEvent[];
+  queryResult: QueryResult;
   isLoading = false;
   private popularTerms: string[];
 
@@ -31,7 +33,7 @@ export class SearchComponent implements OnInit {
 
   async click() {
     this.isLoading = true;
-    this.events = await firstValueFrom(this.apiService.searchEvents(this.query))
+    this.queryResult = await firstValueFrom(this.apiService.searchEvents(this.query))
     this.isLoading = false;
   }
 }

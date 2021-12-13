@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { GLSource } from 'src/app/models/GLSource';
+import { GLSource } from 'src/app/models/gl-source';
 
 @Component({
   selector: 'app-source',

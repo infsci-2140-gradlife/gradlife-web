@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { GLEvent } from 'src/app/models/GLEvent';
+import { GLEvent } from 'src/app/models/gl-event';
 
 @Component({
   selector: 'app-result',

@@ -1,8 +1,8 @@
-import { GLSource } from "./GLSource";
+import { GLSource } from "./gl-source";
 
 export class GLEvent {
     id: number;
-    name: string;
+    title: string;
     location: string;
     date: Date;
     source: GLSource;

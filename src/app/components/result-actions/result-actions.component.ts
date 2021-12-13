@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { GLEvent } from 'src/app/models/GLEvent';
+import { GLEvent } from 'src/app/models/gl-event';
 import { ValidationService } from 'src/app/services/validation.service';
 
 @Component({

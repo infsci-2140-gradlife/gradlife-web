@@ -1,7 +1,8 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { firstValueFrom, Subscriber, Subscription } from 'rxjs';
-import { GLEvent } from 'src/app/models/GLEvent';
+import { GLEvent } from 'src/app/models/gl-event';
+import { QueryResult } from 'src/app/models/query-result';
 import { ApiService } from 'src/app/services/api.service';
 
 @Component({
@@ -9,16 +10,12 @@ import { ApiService } from 'src/app/services/api.service';
   templateUrl: './results.component.html',
   styleUrls: ['./results.component.scss']
 })
-export class ResultsComponent implements OnInit, OnDestroy {
-  events: GLEvent[] = [];
+export class ResultsComponent implements OnInit {
+  queryResult: QueryResult;
   isLoading = false;
   query: string = '';
 
   constructor(private route: ActivatedRoute, private apiService: ApiService) { }
-
-  ngOnDestroy(): void {
-    //throw new Error('Method not implemented.');
-  }
 
   ngOnInit(): void {
     this.route.params.subscribe(p => {
@@ -29,7 +26,8 @@ export class ResultsComponent implements OnInit, OnDestroy {
 
   async click() {
     this.isLoading = true;
-    this.events = await firstValueFrom(this.apiService.searchEvents(this.query))
+    this.queryResult = await firstValueFrom(this.apiService.searchEvents(this.query))
+    console.log('results', this.queryResult);
     this.isLoading = false;
   }
 }

@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  searchApiUrl: 'https://pitt-gradlife.herokuapp.com',
+  searchApiUrl: 'https://pitt-gradlife.herokuapp.com/event',
 };
 
 /*

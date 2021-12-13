@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { Observable, of, delay, firstValueFrom, map } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { LoremIpsum } from 'lorem-ipsum';
-import { GLEvent } from '../models/GLEvent';
-import { GLSource } from '../models/GLSource';
+import { QueryResult } from 'src/app/models/query-result';
+import { GLEvent } from '../models/gl-event';
+import { GLSource } from '../models/gl-source';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({ providedIn: 'root' })
@@ -111,12 +112,10 @@ export class ApiService {
   //   return of(events).pipe(delay(this.MOCK_DELAY));
   // }
 
-  searchEvents(query: string, pageNum = 1, pageSize = 20): Observable<GLEvent[]> {
-    const events: GLEvent[] = []
-
+  searchEvents(query: string, pageNum = 1, pageSize = 20): Observable<QueryResult> {
     return this.http.post(environment.searchApiUrl, { query }).pipe(map(res => {
-      console.log('response', res);
-      return [];
+      const queryResult: QueryResult = <QueryResult> res;
+      return queryResult;
     }));
   }
 }
