@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { firstValueFrom, interval, Observable, map } from 'rxjs';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { GLEvent } from '../models/GLEvent';
 import { ApiService } from '../services/api.service';
 
@@ -8,30 +9,16 @@ import { ApiService } from '../services/api.service';
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss']
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent {
   placeholder$: Observable<string>;
   query: string = '';
   events: GLEvent[];
   isLoading = false;
   private popularTerms: string[];
 
-  constructor(private apiService: ApiService) { }
+  constructor(private apiService: ApiService, private router: Router) { }
 
-  async ngOnInit(): Promise<void> {
-    this.popularTerms = await firstValueFrom(this.apiService.getPopularTerms());
-    this.placeholder$ = interval(5000).pipe(map(_ => {
-      if (this.popularTerms && this.popularTerms.length) {
-        const popTerm = this.popularTerms[Math.floor(Math.random() * this.popularTerms.length)];
-        return `Try "${popTerm}"`;
-      }
-
-      return 'Try "movie night"';
-    }));
-  }
-
-  async click() {
-    this.isLoading = true;
-    this.events = await firstValueFrom(this.apiService.searchEvents(this.query))
-    this.isLoading = false;
+  navigate(query: string) {
+    this.router.navigateByUrl(`/search/${query}`);
   }
 }

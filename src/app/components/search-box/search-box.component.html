@@ -1,8 +1,8 @@
-<form id="search" #search="ngForm" (ngSubmit)="click()">
+<form id="search" #search="ngForm" (ngSubmit)="formSubmit($event)">
     <div class="form-layout">
         <mat-form-field class="full-width" appearance="fill" [hideRequiredMarker]="true">
             <mat-label>{{(placeholder$ | async) || 'Try "movie night"'}}</mat-label>
-            <input name="query" type="search" matInput [(ngModel)]="query" required minlength="3">
+            <input #queryInput name="query" [(ngModel)]="query" type="search" matInput required minlength="3">
     
             <button *ngIf="query" matSuffix mat-icon-button aria-label="Clear" (click)="query=''">
                 <mat-icon>close</mat-icon>
@@ -11,5 +11,20 @@
         <button type="button" mat-flat-button color="primary" (click)="click()" [disabled]="search.invalid">
             <mat-icon>search</mat-icon>
         </button>
+    </div>
+    <div class="date-row">
+        <mat-form-field appearance="fill">
+            <mat-label>Start date</mat-label>
+            <input matInput [matDatepicker]="startPicker">
+            <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+            <mat-datepicker #startPicker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>End date</mat-label>
+            <input matInput [matDatepicker]="endPicker">
+            <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+            <mat-datepicker #endPicker></mat-datepicker>
+        </mat-form-field>
     </div>
 </form>

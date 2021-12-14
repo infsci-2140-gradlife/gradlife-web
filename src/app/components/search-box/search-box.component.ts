@@ -29,6 +29,12 @@ export class SearchBoxComponent implements OnInit {
   }
 
   click() {
+    console.log('emit', this.query)
     this.search.emit(this.query);
+  }
+
+  formSubmit($event: Event) { 
+    $event.preventDefault();
+    this.click();
   }
 }

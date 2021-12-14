@@ -8,9 +8,10 @@
         <mat-card-content>
             {{event.description || '--'}}
         </mat-card-content>
-        <mat-card-actions align="end">
+        <mat-card-actions>
             <div class="actions-container">
                 <app-source [source]="event.source"></app-source>
+                <div class="spacer"></div>
                 <app-result-actions [event]="event"></app-result-actions>
             </div>
         </mat-card-actions>

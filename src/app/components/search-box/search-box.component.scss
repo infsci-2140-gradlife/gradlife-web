@@ -10,15 +10,28 @@ button {
     width: 100%;
 }
 
+mat-form-field {
+    display: block;
+}
+
 .form-layout {
     display: flex;
 
     mat-form-field {
-        display: block;
         margin-right: 2rem;
     }
     
     button {
         flex-shrink: 1;
+    }
+
+    .date-row {
+        mat-form-field {
+            flex-grow: 1;
+        }
+        mat-form-field:first() {
+            display: block;
+            margin-right: 1rem;
+        }
     }
 }

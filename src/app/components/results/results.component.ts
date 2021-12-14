@@ -1,5 +1,5 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { firstValueFrom, Subscriber, Subscription } from 'rxjs';
 import { GLEvent } from 'src/app/models/GLEvent';
 import { ApiService } from 'src/app/services/api.service';
@@ -9,16 +9,15 @@ import { ApiService } from 'src/app/services/api.service';
   templateUrl: './results.component.html',
   styleUrls: ['./results.component.scss']
 })
-export class ResultsComponent implements OnInit, OnDestroy {
+export class ResultsComponent implements OnInit {
   events: GLEvent[] = [];
   isLoading = false;
   query: string = '';
 
-  constructor(private route: ActivatedRoute, private apiService: ApiService) { }
-
-  ngOnDestroy(): void {
-    //throw new Error('Method not implemented.');
-  }
+  constructor(
+    private apiService: ApiService,
+    private route: ActivatedRoute, 
+    private router: Router) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(p => {
@@ -31,5 +30,9 @@ export class ResultsComponent implements OnInit, OnDestroy {
     this.isLoading = true;
     this.events = await firstValueFrom(this.apiService.searchEvents(this.query))
     this.isLoading = false;
+  }
+
+  navigate(query: string) {
+    this.router.navigateByUrl(`/search/${query}`);
   }
 }
