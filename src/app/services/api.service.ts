@@ -113,9 +113,8 @@ export class ApiService {
   // }
 
   searchEvents(query: string, pageNum = 1, pageSize = 20): Observable<QueryResult> {
-    return this.http.post(environment.searchApiUrl, { query }).pipe(map(res => {
-      const queryResult: QueryResult = <QueryResult> res;
-      return queryResult;
-    }));
+    console.log('search', query, pageNum, pageSize);
+    return this.http.post(environment.searchApiUrl, { query, pageNum, pageSize })
+      .pipe(map(res => <QueryResult> res));
   }
 }

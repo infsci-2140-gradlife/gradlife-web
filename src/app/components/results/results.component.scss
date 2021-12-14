@@ -1,3 +1,13 @@
+@use 'sass:map';
+@use '@angular/material' as mat;
+
+$my-palette: mat.define-palette(mat.$indigo-palette);
+
 .results-summary {
     margin: 1rem 0; 
+}
+
+.emphasize {
+    color: mat.get-color-from-palette($my-palette, 500);
+    font-weight: bold;
 }

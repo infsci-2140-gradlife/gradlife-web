@@ -5,9 +5,16 @@
     <div *ngIf="queryResult" class="results-container">
         <p class="results-summary">
             Found 
-            <span class="emphasize">{{queryResult.resultCount}}</span> results!
-            Here are <span class="emphasize">{{queryResult.pageSize}}</span> of them.
+            <span class="emphasize">{{queryResult.resultCount}}</span> results.
         </p>
         <app-result *ngFor="let event of queryResult.results" [event]="event"></app-result>
+        <mat-divider></mat-divider>
+        <mat-paginator 
+            aria-label="Select page"
+            (page)="setPaging($event)"
+            [length]="queryResult.resultCount"
+            [pageSize]="queryResult.pageSize"
+            [pageSizeOptions]="[5, 10, 25]">
+        </mat-paginator>
     </div>
 </div>

@@ -7,5 +7,5 @@ export class GLEvent {
     date: Date;
     source: GLSource;
     description?: string;
-    eventPageUrl?: string;
+    url?: string;
 }
