@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { GLSource } from 'src/app/models/GLSource';
+import { GLEvent } from 'src/app/models/gl-event';
 
 @Component({
   selector: 'app-source',
@@ -7,7 +7,7 @@ import { GLSource } from 'src/app/models/GLSource';
   styleUrls: ['./source.component.scss']
 })
 export class SourceComponent implements OnInit {
-  @Input() source: GLSource;
+  @Input() event: GLEvent;
 
   ngOnInit(): void {
   }

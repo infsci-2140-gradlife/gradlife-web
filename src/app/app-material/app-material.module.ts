@@ -8,6 +8,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
@@ -20,6 +21,7 @@ const MATERIAL_MODULES = [
   MatIconModule,
   MatInputModule,
   MatNativeDateModule,
+  MatPaginatorModule,
   MatProgressBarModule,
   MatToolbarModule,
 ];
