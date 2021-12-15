@@ -33,7 +33,7 @@
             </mat-select>
         </mat-form-field>
 
-        <button type="button" mat-flat-button color="primary" [disabled]="search.invalid">
+        <button type="button" mat-flat-button color="primary" (click)="raise()" [disabled]="search.invalid">
             <mat-icon>search</mat-icon>
         </button>
     </div>
