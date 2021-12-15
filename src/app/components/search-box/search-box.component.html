@@ -35,7 +35,10 @@
             </mat-form-field>
         </div>
         <div class="form-row">
-            <button type="button" class="full-width" mat-flat-button color="primary" (click)="raise()" [disabled]="search.invalid">
+            <button type="button" mat-stroked-button (click)="clear()">
+                <mat-icon>clear</mat-icon>
+            </button>
+            <button type="button" mat-flat-button color="primary" (click)="raise()" [disabled]="search.invalid">
                 <mat-icon>search</mat-icon>
             </button>
         </div>

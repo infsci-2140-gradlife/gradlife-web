@@ -10,8 +10,8 @@ import { ApiService } from 'src/app/services/api.service';
 })
 export class SearchBoxComponent implements OnInit {
   @Input() query = '';
-  @Input() startDate: Date;
-  @Input() endDate: Date;
+  @Input() startDate: Date | null;
+  @Input() endDate: Date | null;
   @Input() location: string;
   @Output() search = new EventEmitter<GLQuery>();
   
@@ -37,11 +37,18 @@ export class SearchBoxComponent implements OnInit {
     }));
   }
 
+  clear() {
+    this.query = '';
+    this.startDate = null;
+    this.endDate = null;
+    this.location = '';
+  }
+
   raise() {
     this.search.emit({ 
       text: this.query,
-      startDate: this.startDate,
-      endDate: this.endDate,
+      startDate: this.startDate || undefined,
+      endDate: this.endDate || undefined,
       location: this.location
     });
   }

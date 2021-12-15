@@ -7,7 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppMaterialModule } from './app-material/app-material.module';
 
-import { AppComponent } from './app.component';
+import { AppComponent } from './components/app/app.component';
 import { SearchComponent } from './search/search.component';
 import { ResultComponent } from './components/result/result.component';
 import { SourceComponent } from './components/source/source.component';
