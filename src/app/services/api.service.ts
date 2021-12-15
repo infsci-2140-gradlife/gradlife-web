@@ -8,21 +8,21 @@ import { GLQuery } from 'src/app/models/gl-query';
 @Injectable({ providedIn: 'root' })
 export class ApiService {
   private MOCK_POP_TERMS = [
-    "dinner",
+    "Dinner",
     "Game night",
     "Study",
     "Pizza",
     "Movie",
     "Concert",
     "Pickup basketball",
-    "Job talk",
+    "Talk",
     "Lecture",
-    "Intramural",
+    "Volleyball",
     "Students",
     "Job fair",
-    "Internship fair",
-    "Symphony performance",
-    "End-of-semester celebration"
+    "Internship",
+    "Symphony",
+    "Celebration"
   ];
 
   private MOCK_LOCATIONS = [
