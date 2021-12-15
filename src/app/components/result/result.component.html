@@ -2,8 +2,8 @@
     <mat-card>
         <mat-card-header>
             <img mat-card-avatar src="https://localist-images.azureedge.net/photos/617248/big_square/0ec0b2778ca03f5d57679db6d450fc90cff06b6f.jpg">
-            <mat-card-title>{{event.title}}</mat-card-title>
-            <mat-card-subtitle>{{event.date | dayjs}} @ {{event.location}}</mat-card-subtitle>
+            <mat-card-title><a [href]="event.url">{{event.title}}</a></mat-card-title>
+            <mat-card-subtitle>{{event.date | dayjs}} <span class="from-now">{{event.date | dayjs:'fromNow'}}</span> @ {{event.location}}</mat-card-subtitle>
         </mat-card-header>
         <mat-card-content>
             {{event.description || '--'}}
@@ -11,6 +11,10 @@
         <mat-card-actions>
             <div class="actions-container">
                 <app-source [event]="event"></app-source>
+                <div *ngIf="event.isRecurring" class="recurring-event">
+                    <mat-icon>event_repeat</mat-icon>
+                    Recurring event
+                </div>
                 <div class="flex-spacer"></div>
                 <app-result-actions [event]="event"></app-result-actions>
             </div>

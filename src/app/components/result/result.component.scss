@@ -1,3 +1,8 @@
+@use 'sass:map';
+@use '@angular/material' as mat;
+
+$my-palette: mat.define-palette(mat.$indigo-palette);
+
 .result-component {
     margin-bottom: 2rem;
 }
@@ -10,4 +15,19 @@
     .flex-spacer {
         flex-grow: 1;
     }
+
+    .recurring-event {
+        display: flex;
+        margin-left: 1rem;
+        align-items: center;
+        
+        mat-icon {
+            display: block;
+            margin-right: 8px;
+        }
+    }
+}
+
+.from-now {
+    color: mat.get-color-from-palette($my-palette, 500);
 }

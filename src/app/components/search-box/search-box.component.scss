@@ -24,13 +24,15 @@ mat-form-field {
     button {
         flex-shrink: 1;
     }
+}
 
-    .date-row {
-        mat-form-field {
-            flex-grow: 1;
-        }
-        mat-form-field:first() {
-            display: block;
+.date-row {
+    display: flex;
+
+    mat-form-field {
+        flex-grow: 1;
+
+        &:not(:last-of-type) {
             margin-right: 1rem;
         }
     }

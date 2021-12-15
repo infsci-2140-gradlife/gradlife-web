@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { firstValueFrom, interval, map, Observable } from 'rxjs';
+import { GLQuery } from 'src/app/models/gl-query';
 import { ApiService } from 'src/app/services/api.service';
 
 @Component({
@@ -9,7 +10,11 @@ import { ApiService } from 'src/app/services/api.service';
 })
 export class SearchBoxComponent implements OnInit {
   @Input() query = '';
-  @Output() search = new EventEmitter<string>();
+  @Output() search = new EventEmitter<GLQuery>();
+  startDate: Date;
+  endDate: Date;
+  locations: Observable<string[]>;
+  selectedLocation: string;
 
   private popularTerms: string[] = [];
   placeholder$: Observable<string>;
@@ -18,6 +23,7 @@ export class SearchBoxComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.popularTerms = await firstValueFrom(this.apiService.getPopularTerms());
+    this.locations = this.apiService.getLocations();
     this.placeholder$ = interval(5000).pipe(map(_ => {
       if (this.popularTerms && this.popularTerms.length) {
         const popTerm = this.popularTerms[Math.floor(Math.random() * this.popularTerms.length)];
@@ -29,8 +35,12 @@ export class SearchBoxComponent implements OnInit {
   }
 
   click() {
-    console.log('emit', this.query)
-    this.search.emit(this.query);
+    this.search.emit({ 
+      text: this.query,
+      startDate: this.startDate,
+      endDate: this.endDate,
+      location: this.selectedLocation
+    });
   }
 
   formSubmit($event: Event) { 

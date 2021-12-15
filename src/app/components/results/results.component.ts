@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PageEvent } from '@angular/material/paginator';
-import { firstValueFrom, Subscriber, Subscription } from 'rxjs';
-import { GLEvent } from 'src/app/models/gl-event';
+import { defaultIfEmpty, Observable, tap } from 'rxjs';
 import { QueryResult } from 'src/app/models/query-result';
 import { ApiService } from 'src/app/services/api.service';
 import { WindowService } from 'src/app/services/window.service';
+import { GLQuery } from 'src/app/models/gl-query';
+import { TypesService } from 'src/app/services/types.service';
 
 @Component({
   selector: 'app-results',
@@ -13,11 +14,10 @@ import { WindowService } from 'src/app/services/window.service';
   styleUrls: ['./results.component.scss']
 })
 export class ResultsComponent implements OnInit {
-  queryResult: QueryResult;
-  isLoading = false;
-  query: string = '';
+  queryResult$: Observable<QueryResult | null>;
 
-  // pagination
+  // query
+  private query: GLQuery;
   pageSize: number = 10;
   pageNum: number = 0;
 
@@ -25,31 +25,34 @@ export class ResultsComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router, 
     private apiService: ApiService,
+    private typesService: TypesService,
     private windowService: WindowService) { }
 
   ngOnInit(): void {
     this.route.params.subscribe(p => {
-      this.query = p['query'];
-      this.click();
-    })
+      this.query = this.typesService.toQuery(p);
+      this.search()
+    });
   }
 
   setPaging(event: PageEvent) {
     this.pageSize = event.pageSize;
     this.pageNum = event.pageIndex;
-    this.click();
+    this.search();
   }
 
-  async click() {
-    this.isLoading = true;
-    this.queryResult = await firstValueFrom(
-      this.apiService.searchEvents(this.query, this.pageNum, this.pageSize));
-    console.log('results', this.queryResult);
-    this.isLoading = false;
+  async search() {
+    console.log('search for', this.query, this.pageNum, this.pageSize);
+    this.queryResult$ = this.apiService.searchEvents(this.query, this.pageNum, this.pageSize).pipe(
+      tap(results => console.log('results', results)),
+      defaultIfEmpty(null));
     this.windowService.get().scrollTo(0, 0);
   }
 
-  navigate(query: string) {
-    this.router.navigateByUrl(`/search/${query}`);
+  navigate(query: GLQuery) {
+    this.router.navigate(
+      ['search', query.text],
+      { queryParams: this.typesService.toParams(query) }
+    );
   }
 }

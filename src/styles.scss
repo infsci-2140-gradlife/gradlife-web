@@ -6,3 +6,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 :root {
     scroll-behavior: smooth;
 }
+
+a {
+    color: unset;
+    text-decoration: none;
+}

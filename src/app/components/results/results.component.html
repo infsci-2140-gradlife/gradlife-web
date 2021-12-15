@@ -1,20 +1,25 @@
 <div class="results-component">
     <app-search-box (search)="navigate($event)"></app-search-box>
     <mat-divider></mat-divider>
-    <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
-    <div *ngIf="queryResult" class="results-container">
+    <div *ngIf="queryResult$ | async as result; else loading" class="results-container">
         <p class="results-summary">
             Found 
-            <span class="emphasize">{{queryResult.resultCount}}</span> results.
+            <span class="emphasize">{{result.resultCount}}</span> results.
         </p>
-        <app-result *ngFor="let event of queryResult.results" [event]="event"></app-result>
-        <mat-divider></mat-divider>
-        <mat-paginator 
-            aria-label="Select page"
-            (page)="setPaging($event)"
-            [length]="queryResult.resultCount"
-            [pageSize]="queryResult.pageSize"
-            [pageSizeOptions]="[5, 10, 25]">
-        </mat-paginator>
+        <app-result *ngFor="let event of result.results" [event]="event"></app-result>
+        <div *ngIf="result.results.length" class="pagination">
+            <mat-divider></mat-divider>
+            <mat-paginator 
+                aria-label="Select page"
+                (page)="setPaging($event)"
+                [length]="result.resultCount"
+                [pageIndex]="pageNum"
+                [pageSize]="pageSize"
+                [pageSizeOptions]="[5, 10, 25]">
+            </mat-paginator>
+        </div>
     </div>
+    <ng-template #loading>
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </ng-template>
 </div>

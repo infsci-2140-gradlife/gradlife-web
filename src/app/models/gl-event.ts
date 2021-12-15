@@ -5,6 +5,7 @@ export class GLEvent {
     title: string;
     location: string;
     date: Date;
+    isRecurring: boolean;
     source: GLSource;
     description?: string;
     url?: string;
