@@ -3,6 +3,10 @@
 
 $my-palette: mat.define-palette(mat.$indigo-palette);
 
+.results-component {
+    width: 100%;
+}
+
 .results-summary {
     margin: 1rem 0; 
 }
@@ -10,4 +14,13 @@ $my-palette: mat.define-palette(mat.$indigo-palette);
 .emphasize {
     color: mat.get-color-from-palette($my-palette, 500);
     font-weight: bold;
+}
+
+.pagination {
+    margin-top: 1rem;
+}
+
+app-search-box {
+    display: block;
+    margin-bottom: 1rem;
 }

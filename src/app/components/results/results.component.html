@@ -9,7 +9,8 @@
     <div *ngIf="queryResult$ | async as result; else loading" class="results-container">
         <p class="results-summary">
             Found 
-            <span class="emphasize">{{result.resultCount}}</span> results.
+            <span class="emphasize">{{result.resultCount}}</span> 
+            results.
         </p>
         <app-result *ngFor="let event of result.results" [event]="event"></app-result>
         <div *ngIf="result.results.length" class="pagination">

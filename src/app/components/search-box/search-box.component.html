@@ -1,40 +1,43 @@
-<form id="search" #search="ngForm" (ngSubmit)="formSubmit" (keydown.enter)="onEnter($event)">
-    <div class="form-layout">
-        <mat-form-field class="full-width" appearance="fill" [hideRequiredMarker]="true">
-            <mat-label>{{(placeholder$ | async) || 'Try "movie night"'}}</mat-label>
-            <input #queryInput name="query" [(ngModel)]="query" type="search" matInput required minlength="3" autocomplete="off">
+<div class="search-box-component">
+    <form id="search" #search="ngForm" (ngSubmit)="formSubmit" (keydown.enter)="onEnter($event)">
+        <div class="form-row">
+            <mat-form-field class="full-width" appearance="fill" [hideRequiredMarker]="true">
+                <mat-label>{{(placeholder$ | async) || 'Try "movie night"'}}</mat-label>
+                <input #queryInput name="query" [(ngModel)]="query" type="search" matInput required minlength="3" autocomplete="off">
+        
+                <button *ngIf="query" matSuffix mat-icon-button aria-label="Clear" (click)="query=''">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </mat-form-field>
+        </div>
+        <div class="form-row">
+            <mat-form-field appearance="fill">
+                <mat-label>Start date</mat-label>
+                <input name="startDate`" matInput [(ngModel)]="startDate" [matDatepicker]="startPicker">
+                <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+                <mat-datepicker #startPicker></mat-datepicker>
+            </mat-form-field>
     
-            <button *ngIf="query" matSuffix mat-icon-button aria-label="Clear" (click)="query=''">
-                <mat-icon>close</mat-icon>
+            <mat-form-field appearance="fill">
+                <mat-label>End date</mat-label>
+                <input name="endDate" matInput [(ngModel)]="endDate" [matDatepicker]="endPicker">
+                <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+                <mat-datepicker #endPicker></mat-datepicker>
+            </mat-form-field>
+    
+            <mat-form-field appearance="fill">
+                <mat-label>Location</mat-label>
+                <mat-select name="selectedLocation" [(ngModel)]="location">
+                    <mat-option *ngFor="let location of (locations | async)" [value]="location">
+                        {{location}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="form-row">
+            <button type="button" class="full-width" mat-flat-button color="primary" (click)="raise()" [disabled]="search.invalid">
+                <mat-icon>search</mat-icon>
             </button>
-        </mat-form-field>
-    </div>
-    <div class="date-row">
-        <mat-form-field appearance="fill">
-            <mat-label>Start date</mat-label>
-            <input name="startDate`" matInput [(ngModel)]="startDate" [matDatepicker]="startPicker">
-            <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
-            <mat-datepicker #startPicker></mat-datepicker>
-        </mat-form-field>
-
-        <mat-form-field appearance="fill">
-            <mat-label>End date</mat-label>
-            <input name="endDate" matInput [(ngModel)]="endDate" [matDatepicker]="endPicker">
-            <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
-            <mat-datepicker #endPicker></mat-datepicker>
-        </mat-form-field>
-
-        <mat-form-field appearance="fill">
-            <mat-label>Location</mat-label>
-            <mat-select name="selectedLocation" [(ngModel)]="location">
-                <mat-option *ngFor="let location of (locations | async)" [value]="location">
-                    {{location}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-
-        <button type="button" mat-flat-button color="primary" (click)="raise()" [disabled]="search.invalid">
-            <mat-icon>search</mat-icon>
-        </button>
-    </div>
-</form>
+        </div>
+    </form>
+</div>

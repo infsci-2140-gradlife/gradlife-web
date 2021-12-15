@@ -1,35 +1,21 @@
 form {
-    width: 100%;
-}
+    display: block;
 
-button {
-    height: 54px;
+    .form-row {
+        display: flex;
+        flex-wrap: wrap;
+
+        mat-form-field {
+            display: block;
+            flex-grow: 1;
+    
+            &:not(:last-of-type) {
+                margin-right: 1rem;
+            }
+        }
+    }
 }
 
 .full-width {
     width: 100%;
-}
-
-mat-form-field {
-    display: block;
-}
-
-.form-layout {
-    display: flex;
-}
-
-.date-row {
-    display: flex;
-
-    mat-form-field {
-        flex-grow: 1;
-
-        &:not(:last-of-type) {
-            margin-right: 1rem;
-        }
-    }
-
-    button {
-        margin-left: 1rem;
-    }
 }

@@ -5,6 +5,10 @@ $my-palette: mat.define-palette(mat.$indigo-palette);
 
 .result-component {
     margin-bottom: 2rem;
+
+    mat-card {
+        width: 100%;
+    }
 }
 
 .actions-container {
