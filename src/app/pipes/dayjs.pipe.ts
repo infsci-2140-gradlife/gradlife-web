@@ -13,11 +13,12 @@ export class DayjsPipe implements PipeTransform {
 
   transform(value: Date, ...args: unknown[]): string | null {
     const superpowered = dayjs(value);
+    const now = new Date();
 
     if (args.length == 0)
       return `${superpowered.format('LL')}`;
 
-    if (dayjs(superpowered).diff(new Date()) > this.SEVEN_DAYS) {
+    if (Math.abs(superpowered.diff(new Date())) < this.SEVEN_DAYS) {
       return `(${superpowered.fromNow()})`;
     }
 

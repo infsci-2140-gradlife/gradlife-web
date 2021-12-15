@@ -10,12 +10,15 @@ import { ApiService } from 'src/app/services/api.service';
 })
 export class SearchBoxComponent implements OnInit {
   @Input() query = '';
+  @Input() startDate: Date;
+  @Input() endDate: Date;
+  @Input() location: string;
   @Output() search = new EventEmitter<GLQuery>();
-  startDate: Date;
-  endDate: Date;
+  
+  // template controls
   locations: Observable<string[]>;
-  selectedLocation: string;
-
+  
+  // pretty suggestions
   private popularTerms: string[] = [];
   placeholder$: Observable<string>;
 
@@ -34,17 +37,21 @@ export class SearchBoxComponent implements OnInit {
     }));
   }
 
-  click() {
+  raise() {
     this.search.emit({ 
       text: this.query,
       startDate: this.startDate,
       endDate: this.endDate,
-      location: this.selectedLocation
+      location: this.location
     });
   }
 
   formSubmit($event: Event) { 
+    this.raise();
+  }
+
+  onEnter($event: Event) {
     $event.preventDefault();
-    this.click();
+    this.raise();
   }
 }

@@ -1,5 +1,10 @@
 <div class="results-component">
-    <app-search-box (search)="navigate($event)"></app-search-box>
+    <app-search-box 
+        (search)="navigate($event)" 
+        [query]="queryText"
+        [startDate]="startDate"
+        [endDate]="endDate"
+        [location]="location"></app-search-box>
     <mat-divider></mat-divider>
     <div *ngIf="queryResult$ | async as result; else loading" class="results-container">
         <p class="results-summary">

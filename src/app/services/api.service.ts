@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of, map } from 'rxjs';
+import { Observable, of, map, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { QueryResult } from 'src/app/models/query-result';
 import { GLQuery } from 'src/app/models/gl-query';
@@ -43,7 +43,8 @@ export class ApiService {
   constructor(private http: HttpClient) { }
 
   getLocations(): Observable<string[]> {
-    return of(this.MOCK_LOCATIONS.sort());
+    return this.http.get(`${environment.searchApiUrl}/location`)
+      .pipe(map((res: unknown) => <string[]> res));
   }
 
   getPopularTerms(): Observable<string[]> {
@@ -51,14 +52,17 @@ export class ApiService {
   }
 
   searchEvents(query: GLQuery, pageNum = 1, pageSize = 20): Observable<QueryResult> {
-    return this.http.post(environment.searchApiUrl, { query, pageNum, pageSize })
-      .pipe(map((res:any) => {
+    return this.http.post(`${environment.searchApiUrl}/event`, { 
+      query, 
+      pageNum, 
+      pageSize 
+    }).pipe(map((res:any) => {
         for (let event of res.results) {
           // fix up pythonic property names
           event.isRecurring = event.is_recurring;
           delete event.is_recurring;
         }
-        return <QueryResult> res
+        return <QueryResult> res;
       }));
   }
 }

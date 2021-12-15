@@ -24,21 +24,23 @@ export class TypesService {
     return params;
   }
 
-  toQuery(params: Params): GLQuery {
+  toQuery(params: Params, queryParams: Params): GLQuery {
     const query: GLQuery = {
       text: params['query'],
     };
 
-    if (params['startDate']) {
-      query.startDate = this.dateService.toDate(params['startDate']);
-    }
-
-    if (params['endDate']) {
-      query.startDate = this.dateService.toDate(params['endDate']);
-    }
-
-    if (params['location']) {
-      query.location = params['location'];
+    if (queryParams) {
+      if (queryParams['startDate']) {
+        query.startDate = this.dateService.toDate(queryParams['startDate']);
+      }
+  
+      if (queryParams['endDate']) {
+        query.endDate = this.dateService.toDate(queryParams['endDate']);
+      }
+  
+      if (queryParams['location']) {
+        query.location = queryParams['location'];
+      }
     }
     
     return query;

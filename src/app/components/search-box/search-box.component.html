@@ -1,4 +1,4 @@
-<form id="search" #search="ngForm" (ngSubmit)="formSubmit($event)">
+<form id="search" #search="ngForm" (ngSubmit)="formSubmit" (keydown.enter)="onEnter($event)">
     <div class="form-layout">
         <mat-form-field class="full-width" appearance="fill" [hideRequiredMarker]="true">
             <mat-label>{{(placeholder$ | async) || 'Try "movie night"'}}</mat-label>
@@ -8,9 +8,6 @@
                 <mat-icon>close</mat-icon>
             </button>
         </mat-form-field>
-        <button type="button" mat-flat-button color="primary" (click)="click()" [disabled]="search.invalid">
-            <mat-icon>search</mat-icon>
-        </button>
     </div>
     <div class="date-row">
         <mat-form-field appearance="fill">
@@ -29,11 +26,15 @@
 
         <mat-form-field appearance="fill">
             <mat-label>Location</mat-label>
-            <mat-select name="selectedLocation" [(ngModel)]="selectedLocation">
+            <mat-select name="selectedLocation" [(ngModel)]="location">
                 <mat-option *ngFor="let location of (locations | async)" [value]="location">
                     {{location}}
                 </mat-option>
             </mat-select>
         </mat-form-field>
+
+        <button type="button" mat-flat-button color="primary" [disabled]="search.invalid">
+            <mat-icon>search</mat-icon>
+        </button>
     </div>
 </form>

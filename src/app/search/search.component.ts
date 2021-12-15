@@ -14,6 +14,7 @@ export class SearchComponent {
     private router: Router) { }
 
   navigate(query: GLQuery) {
+    console.log('what is', query);
     this.router.navigate(
       ['search', query.text],
       { queryParams: this.typesService.toParams(query) }
