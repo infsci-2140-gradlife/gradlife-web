@@ -10,6 +10,7 @@
                 </button>
             </mat-form-field>
         </div>
+        
         <div class="form-row">
             <mat-form-field appearance="fill">
                 <mat-label>Start date</mat-label>
@@ -34,9 +35,10 @@
                 </mat-select>
             </mat-form-field>
         </div>
+
         <div class="form-row">
             <button type="button" mat-stroked-button (click)="clear()">
-                <mat-icon>clear</mat-icon>
+                CLEAR
             </button>
             <button type="button" mat-flat-button color="primary" (click)="raise()" [disabled]="search.invalid">
                 <mat-icon>search</mat-icon>
